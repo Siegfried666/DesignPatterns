@@ -1,0 +1,15 @@
+D:\DEVELOPPEMENT\Dev 2025\DesignPatterns\DesignPatterns\bin\Debug\net9.0\DesignPatterns.exe
+D:\DEVELOPPEMENT\Dev 2025\DesignPatterns\DesignPatterns\bin\Debug\net9.0\DesignPatterns.deps.json
+D:\DEVELOPPEMENT\Dev 2025\DesignPatterns\DesignPatterns\bin\Debug\net9.0\DesignPatterns.runtimeconfig.json
+D:\DEVELOPPEMENT\Dev 2025\DesignPatterns\DesignPatterns\bin\Debug\net9.0\DesignPatterns.dll
+D:\DEVELOPPEMENT\Dev 2025\DesignPatterns\DesignPatterns\bin\Debug\net9.0\DesignPatterns.pdb
+D:\DEVELOPPEMENT\Dev 2025\DesignPatterns\DesignPatterns\obj\Debug\net9.0\DesignPatterns.GeneratedMSBuildEditorConfig.editorconfig
+D:\DEVELOPPEMENT\Dev 2025\DesignPatterns\DesignPatterns\obj\Debug\net9.0\DesignPatterns.AssemblyInfoInputs.cache
+D:\DEVELOPPEMENT\Dev 2025\DesignPatterns\DesignPatterns\obj\Debug\net9.0\DesignPatterns.AssemblyInfo.cs
+D:\DEVELOPPEMENT\Dev 2025\DesignPatterns\DesignPatterns\obj\Debug\net9.0\DesignPatterns.csproj.CoreCompileInputs.cache
+D:\DEVELOPPEMENT\Dev 2025\DesignPatterns\DesignPatterns\obj\Debug\net9.0\DesignPatterns.sourcelink.json
+D:\DEVELOPPEMENT\Dev 2025\DesignPatterns\DesignPatterns\obj\Debug\net9.0\DesignPatterns.dll
+D:\DEVELOPPEMENT\Dev 2025\DesignPatterns\DesignPatterns\obj\Debug\net9.0\refint\DesignPatterns.dll
+D:\DEVELOPPEMENT\Dev 2025\DesignPatterns\DesignPatterns\obj\Debug\net9.0\DesignPatterns.pdb
+D:\DEVELOPPEMENT\Dev 2025\DesignPatterns\DesignPatterns\obj\Debug\net9.0\DesignPatterns.genruntimeconfig.cache
+D:\DEVELOPPEMENT\Dev 2025\DesignPatterns\DesignPatterns\obj\Debug\net9.0\ref\DesignPatterns.dll
