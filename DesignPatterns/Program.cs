@@ -74,6 +74,7 @@ Separation of concern: séparations entre les objets et les classes
 
 */
 
+using DESIGNPATTERNS.BehavioralsDesignsPatterns.Iterator;
 using DESIGNPATTERNS.BehavioralsDesignsPatterns.Strategy.GOOD;
 
 var videoStorage = new VideoStorage(new CompressorMOV(), new OverlayBlackAndWhite());
@@ -85,6 +86,36 @@ videoStorage.Store("video/some-movie");
 
 /* 
 
-        Strategy Pattern => On passe différents algorithmes ou comportements à un objet
+        Iterator Pattern => Permet d'itérer un objet sans avoir à connaitre la structure interne de cet objet.
+        Le fait de changer le fonctionnement interne d'un objet ne doit pas affecter le consommateur
+
+        Pour appliquer le patern Iterator, on doit ajouter des méthodes génériques Next(), Current(), HasNext() mais ça viole le SRP
+        On doit donc ajouter une nouvelle Interface Iterator et une classe conrète du type d'itérateur ex: ArrayIterator, ListIterator
 
 */
+
+// BAD: Si on change l'interieur de l'objet, on va avoir un problème
+DESIGNPATTERNS.BehavioralsDesignsPatterns.Iterator.BAD.ShoppingList listBad = new DESIGNPATTERNS.BehavioralsDesignsPatterns.Iterator.BAD.ShoppingList();
+listBad.Push("Milk");
+listBad.Push("Bread");
+listBad.Push("Steak");
+
+for (int i = 0; i < listBad.GetList().Count; i++)
+{
+        var item = listBad.GetList()[i];
+        System.Console.WriteLine(item);
+}
+
+// GOOD
+DESIGNPATTERNS.BehavioralsDesignsPatterns.Iterator.GOOD.ShoppingList listGood = new DESIGNPATTERNS.BehavioralsDesignsPatterns.Iterator.GOOD.ShoppingList();
+listBad.Push("Milk");
+listBad.Push("Bread");
+listBad.Push("Steak");
+
+var iterator = listGood.CreateIterator();
+
+while (iterator.HasNext())
+{
+        System.Console.WriteLine(iterator.Current());
+        iterator.Next();
+}
