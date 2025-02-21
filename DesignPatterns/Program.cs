@@ -1,4 +1,5 @@
-﻿/* Begavioral Design Patterns
+﻿using System.Security.Cryptography;
+/* Begavioral Design Patterns
 Les Design Patterns Bahaviorial concernent l'interaction entre les objets
 Permet de résoudre des problèmes de communication, de responsabilité et d'algorithmique
 Separation of concern: séparations entre les objets et les classes
@@ -75,11 +76,16 @@ Separation of concern: séparations entre les objets et les classes
 */
 
 using DesignPatterns.BehavioralsDesignsPatterns.COMMAND.UNDOABLE;
+using DesignPatterns.BehavioralsDesignsPatterns.TEMPLATE_METHOD.BAD;
+using DesignPatterns.BehavioralsDesignsPatterns.TEMPLATE_METHOD.GOOD_StrategyPattern;
+
 using DESIGNPATTERNS.BehavioralsDesignsPatterns.Command;
 using DESIGNPATTERNS.BehavioralsDesignsPatterns.Command.BAD;
 using DESIGNPATTERNS.BehavioralsDesignsPatterns.Command.GOOD;
 using DESIGNPATTERNS.BehavioralsDesignsPatterns.Iterator;
 using DESIGNPATTERNS.BehavioralsDesignsPatterns.Strategy.GOOD;
+
+using Tea = DesignPatterns.BehavioralsDesignsPatterns.TEMPLATE_METHOD.BAD.Tea;
 
 var videoStorage = new VideoStorage(new CompressorMOV(), new OverlayBlackAndWhite());
 videoStorage.Store("video/some-movie");
@@ -157,3 +163,29 @@ System.Console.WriteLine(htmlDoc.Content);// <i>Hello world</i>
 var undoCommand = new UndoCommand(history);
 undoCommand.Execute();
 System.Console.WriteLine(htmlDoc.Content);// Hello world
+
+/* 
+        Template method Pattern
+        -> On peut se service de Strategy Pattern => Utilise le Polymorphisme (POO principle) et le Pattern Strategy pour regrouper dans une classe abstraite ce qui se
+        répète dans le code
+*/
+
+//BAD: Si on ajoute une autre classe, on répète le code (ex: Coffee avec des particularités différentes)
+var teaBad = new Tea();
+teaBad.MakeBeverage();
+
+//GOOD Strategy Patterns
+System.Console.WriteLine("GOOD Strategy Patterns");
+var beverageMaker = new BeverageMaker(new DesignPatterns.BehavioralsDesignsPatterns.TEMPLATE_METHOD.GOOD_StrategyPattern.Tea());
+beverageMaker.MakeBeverage();
+
+beverageMaker = new BeverageMaker(new DesignPatterns.BehavioralsDesignsPatterns.TEMPLATE_METHOD.GOOD_StrategyPattern.Coffee());
+beverageMaker.MakeBeverage();
+
+// GOOD Template method Pattern
+System.Console.WriteLine("GOOD Template method Pattern");
+var tea = new DesignPatterns.BehavioralsDesignsPatterns.TEMPLATE_METHOD.GOOD_TemplateMethodPattern.Tea();
+tea.Prepare();
+
+var camomile = new DesignPatterns.BehavioralsDesignsPatterns.TEMPLATE_METHOD.GOOD_TemplateMethodPattern.Camomile();
+camomile.Prepare();
