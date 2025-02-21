@@ -74,6 +74,10 @@ Separation of concern: séparations entre les objets et les classes
 
 */
 
+using DesignPatterns.BehavioralsDesignsPatterns.COMMAND.UNDOABLE;
+using DESIGNPATTERNS.BehavioralsDesignsPatterns.Command;
+using DESIGNPATTERNS.BehavioralsDesignsPatterns.Command.BAD;
+using DESIGNPATTERNS.BehavioralsDesignsPatterns.Command.GOOD;
 using DESIGNPATTERNS.BehavioralsDesignsPatterns.Iterator;
 using DESIGNPATTERNS.BehavioralsDesignsPatterns.Strategy.GOOD;
 
@@ -119,3 +123,37 @@ while (iterator.HasNext())
         System.Console.WriteLine(iterator.Current());
         iterator.Next();
 }
+
+/* 
+        Command Pattern => Encapsule une commande comme objet
+*/
+
+// BAD
+var lightBad = new DESIGNPATTERNS.BehavioralsDesignsPatterns.Command.BAD.Light();
+var remoteBad = new DESIGNPATTERNS.BehavioralsDesignsPatterns.Command.BAD.RemoteControl(lightBad);
+
+remoteBad.PressButton(true);
+remoteBad.PressButton(false);
+
+// GOOD
+var lightGood = new DESIGNPATTERNS.BehavioralsDesignsPatterns.Command.GOOD.Light();
+var remoteGood = new DESIGNPATTERNS.BehavioralsDesignsPatterns.Command.GOOD.RemoteControl(new TurnOnCommand(lightGood));
+remoteGood.PressButton(); // light is on
+remoteGood.SetCommand(new DimCommand(lightGood));
+remoteGood.PressButton(); // light is dim
+remoteGood.SetCommand(new TurnOffCommand(lightGood));
+remoteGood.PressButton(); // light is off
+
+// UNDOABLE
+var htmlDoc = new HtmlDocument();
+var history = new History();
+htmlDoc.Content = "Hello wrold";
+System.Console.WriteLine(htmlDoc.Content); // Hello world
+
+var italicCommand = new ItalicCommand(htmlDoc, history);
+italicCommand.Execute();
+System.Console.WriteLine(htmlDoc.Content);// <i>Hello world</i>
+
+var undoCommand = new UndoCommand(history);
+undoCommand.Execute();
+System.Console.WriteLine(htmlDoc.Content);// Hello world
