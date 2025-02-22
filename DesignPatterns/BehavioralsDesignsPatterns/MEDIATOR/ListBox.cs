@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DesignPatterns.BehavioralsDesignsPatterns.MEDIATOR.GOOD.WITHOBSERVER
+namespace DesignPatterns.BehavioralsDesignsPatterns.MEDIATOR
 {
     public class ListBox : UIControl
     {
+
         private string _selection = "";
 
+
+        public ListBox(DialogBox owner) : base(owner)
+        {
+        }
 
         public string GetSelection()
         {
@@ -18,7 +23,7 @@ namespace DesignPatterns.BehavioralsDesignsPatterns.MEDIATOR.GOOD.WITHOBSERVER
         public void SetSelection(string selection)
         {
             _selection = selection;
-            NotifyEventHandlers();
+            _owner.Changed(this);
         }
     }
 }

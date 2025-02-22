@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DesignPatterns.BehavioralsDesignsPatterns.MEDIATOR.GOOD.WITHOBSERVER.UIFramework;
+using DesignPatterns.BehavioralsDesignsPatterns.MEDIATOR.WITHOBSERVER.UIFramework;
 
-namespace DesignPatterns.BehavioralsDesignsPatterns.MEDIATOR.GOOD.WITHOBSERVER
+namespace DesignPatterns.BehavioralsDesignsPatterns.MEDIATOR.WITHOBSERVER
 {
     public class UIControl
     {

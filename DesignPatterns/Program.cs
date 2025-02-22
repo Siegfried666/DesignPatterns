@@ -1,5 +1,5 @@
 ﻿using System.Security.Cryptography;
-using DesignPatterns.BehavioralsDesignsPatterns.MEDIATOR.GOOD;
+using DesignPatterns.BehavioralsDesignsPatterns.MEDIATOR;
 using DesignPatterns.BehavioralsDesignsPatterns.OBSERVER.BAD;
 /* Begavioral Design Patterns
 Les Design Patterns Bahaviorial concernent l'interaction entre les objets
@@ -234,5 +234,5 @@ Separation of concern: séparations entre les objets et les classes
 // var postDialogBox = new PostDialogBox();
 // postDialogBox.SimulateUserInteraction();
 
-var postDialogBox = new DesignPatterns.BehavioralsDesignsPatterns.MEDIATOR.GOOD.WITHOBSERVER.PostDialogBox();
+var postDialogBox = new DesignPatterns.BehavioralsDesignsPatterns.MEDIATOR.WITHOBSERVER.PostDialogBox();
 postDialogBox.SimulateUserInteraction();

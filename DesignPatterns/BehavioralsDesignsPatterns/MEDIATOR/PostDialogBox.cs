@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace DesignPatterns.BehavioralsDesignsPatterns.MEDIATOR.GOOD
+namespace DesignPatterns.BehavioralsDesignsPatterns.MEDIATOR
 {
     public class PostDialogBox : DialogBox
     {
