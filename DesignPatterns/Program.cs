@@ -1,4 +1,5 @@
 ﻿using System.Security.Cryptography;
+using DesignPatterns.BehavioralsDesignsPatterns.MEDIATOR.GOOD;
 using DesignPatterns.BehavioralsDesignsPatterns.OBSERVER.BAD;
 /* Begavioral Design Patterns
 Les Design Patterns Bahaviorial concernent l'interaction entre les objets
@@ -214,14 +215,24 @@ Separation of concern: séparations entre les objets et les classes
 // SRP => on Créé une classe qui gère les objets
 // OCP => on implémente une interface commune aux objets Sheet2 et BarChart
 
-DesignPatterns.BehavioralsDesignsPatterns.OBSERVER.GOOD.Datasource datasource = new DesignPatterns.BehavioralsDesignsPatterns.OBSERVER.GOOD.Datasource();
+// DesignPatterns.BehavioralsDesignsPatterns.OBSERVER.GOOD.Datasource datasource = new DesignPatterns.BehavioralsDesignsPatterns.OBSERVER.GOOD.Datasource();
 
-DesignPatterns.BehavioralsDesignsPatterns.OBSERVER.GOOD.Sheet2 sheet2 = new DesignPatterns.BehavioralsDesignsPatterns.OBSERVER.GOOD.Sheet2(datasource);
-DesignPatterns.BehavioralsDesignsPatterns.OBSERVER.GOOD.BarChart barChart = new DesignPatterns.BehavioralsDesignsPatterns.OBSERVER.GOOD.BarChart(datasource);
+// DesignPatterns.BehavioralsDesignsPatterns.OBSERVER.GOOD.Sheet2 sheet2 = new DesignPatterns.BehavioralsDesignsPatterns.OBSERVER.GOOD.Sheet2(datasource);
+// DesignPatterns.BehavioralsDesignsPatterns.OBSERVER.GOOD.BarChart barChart = new DesignPatterns.BehavioralsDesignsPatterns.OBSERVER.GOOD.BarChart(datasource);
 
-datasource.AddObserver(sheet2);
-datasource.AddObserver(barChart);
+// datasource.AddObserver(sheet2);
+// datasource.AddObserver(barChart);
 
-datasource.SetValues([5, 1, 10]);
+// datasource.SetValues([5, 1, 10]);
 
-datasource.SetValues([1, 2, 3]);
+// datasource.SetValues([1, 2, 3]);
+
+/* 
+        Mediator Pattern => Un objet appelé le "Mediator" qui décrit l'interraction entre plusieurs objets va réduire les dépendances entre les objets
+*/
+
+// var postDialogBox = new PostDialogBox();
+// postDialogBox.SimulateUserInteraction();
+
+var postDialogBox = new DesignPatterns.BehavioralsDesignsPatterns.MEDIATOR.GOOD.WITHOBSERVER.PostDialogBox();
+postDialogBox.SimulateUserInteraction();
