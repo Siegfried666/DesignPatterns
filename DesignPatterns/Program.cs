@@ -1,4 +1,5 @@
 ﻿using System.Security.Cryptography;
+using DesignPatterns.BehavioralsDesignsPatterns.OBSERVER.BAD;
 /* Begavioral Design Patterns
 Les Design Patterns Bahaviorial concernent l'interaction entre les objets
 Permet de résoudre des problèmes de communication, de responsabilité et d'algorithmique
@@ -75,24 +76,24 @@ Separation of concern: séparations entre les objets et les classes
 
 */
 
-using DesignPatterns.BehavioralsDesignsPatterns.COMMAND.UNDOABLE;
-using DesignPatterns.BehavioralsDesignsPatterns.TEMPLATE_METHOD.BAD;
-using DesignPatterns.BehavioralsDesignsPatterns.TEMPLATE_METHOD.GOOD_StrategyPattern;
+// using DesignPatterns.BehavioralsDesignsPatterns.COMMAND.UNDOABLE;
+// using DesignPatterns.BehavioralsDesignsPatterns.TEMPLATE_METHOD.BAD;
+// using DesignPatterns.BehavioralsDesignsPatterns.TEMPLATE_METHOD.GOOD_StrategyPattern;
 
-using DESIGNPATTERNS.BehavioralsDesignsPatterns.Command;
-using DESIGNPATTERNS.BehavioralsDesignsPatterns.Command.BAD;
-using DESIGNPATTERNS.BehavioralsDesignsPatterns.Command.GOOD;
-using DESIGNPATTERNS.BehavioralsDesignsPatterns.Iterator;
-using DESIGNPATTERNS.BehavioralsDesignsPatterns.Strategy.GOOD;
+// using DESIGNPATTERNS.BehavioralsDesignsPatterns.Command;
+// using DESIGNPATTERNS.BehavioralsDesignsPatterns.Command.BAD;
+// using DESIGNPATTERNS.BehavioralsDesignsPatterns.Command.GOOD;
+// using DESIGNPATTERNS.BehavioralsDesignsPatterns.Iterator;
+// using DESIGNPATTERNS.BehavioralsDesignsPatterns.Strategy.GOOD;
 
-using Tea = DesignPatterns.BehavioralsDesignsPatterns.TEMPLATE_METHOD.BAD.Tea;
+// using Tea = DesignPatterns.BehavioralsDesignsPatterns.TEMPLATE_METHOD.BAD.Tea;
 
-var videoStorage = new VideoStorage(new CompressorMOV(), new OverlayBlackAndWhite());
-videoStorage.Store("video/some-movie");
+// var videoStorage = new VideoStorage(new CompressorMOV(), new OverlayBlackAndWhite());
+// videoStorage.Store("video/some-movie");
 
-videoStorage.SetCompressor(new CompressorMP4());
-videoStorage.SetOverlay(new OverlayNone());
-videoStorage.Store("video/some-movie");
+// videoStorage.SetCompressor(new CompressorMP4());
+// videoStorage.SetOverlay(new OverlayNone());
+// videoStorage.Store("video/some-movie");
 
 /* 
 
@@ -105,64 +106,64 @@ videoStorage.Store("video/some-movie");
 */
 
 // BAD: Si on change l'interieur de l'objet, on va avoir un problème
-DESIGNPATTERNS.BehavioralsDesignsPatterns.Iterator.BAD.ShoppingList listBad = new DESIGNPATTERNS.BehavioralsDesignsPatterns.Iterator.BAD.ShoppingList();
-listBad.Push("Milk");
-listBad.Push("Bread");
-listBad.Push("Steak");
+// DESIGNPATTERNS.BehavioralsDesignsPatterns.Iterator.BAD.ShoppingList listBad = new DESIGNPATTERNS.BehavioralsDesignsPatterns.Iterator.BAD.ShoppingList();
+// listBad.Push("Milk");
+// listBad.Push("Bread");
+// listBad.Push("Steak");
 
-for (int i = 0; i < listBad.GetList().Count; i++)
-{
-        var item = listBad.GetList()[i];
-        System.Console.WriteLine(item);
-}
+// for (int i = 0; i < listBad.GetList().Count; i++)
+// {
+//         var item = listBad.GetList()[i];
+//         System.Console.WriteLine(item);
+// }
 
 // GOOD
-DESIGNPATTERNS.BehavioralsDesignsPatterns.Iterator.GOOD.ShoppingList listGood = new DESIGNPATTERNS.BehavioralsDesignsPatterns.Iterator.GOOD.ShoppingList();
-listBad.Push("Milk");
-listBad.Push("Bread");
-listBad.Push("Steak");
+// DESIGNPATTERNS.BehavioralsDesignsPatterns.Iterator.GOOD.ShoppingList listGood = new DESIGNPATTERNS.BehavioralsDesignsPatterns.Iterator.GOOD.ShoppingList();
+// listBad.Push("Milk");
+// listBad.Push("Bread");
+// listBad.Push("Steak");
 
-var iterator = listGood.CreateIterator();
+// var iterator = listGood.CreateIterator();
 
-while (iterator.HasNext())
-{
-        System.Console.WriteLine(iterator.Current());
-        iterator.Next();
-}
+// while (iterator.HasNext())
+// {
+//         System.Console.WriteLine(iterator.Current());
+//         iterator.Next();
+// }
 
 /* 
         Command Pattern => Encapsule une commande comme objet
 */
 
 // BAD
-var lightBad = new DESIGNPATTERNS.BehavioralsDesignsPatterns.Command.BAD.Light();
-var remoteBad = new DESIGNPATTERNS.BehavioralsDesignsPatterns.Command.BAD.RemoteControl(lightBad);
+// var lightBad = new DESIGNPATTERNS.BehavioralsDesignsPatterns.Command.BAD.Light();
+// var remoteBad = new DESIGNPATTERNS.BehavioralsDesignsPatterns.Command.BAD.RemoteControl(lightBad);
 
-remoteBad.PressButton(true);
-remoteBad.PressButton(false);
+// remoteBad.PressButton(true);
+// remoteBad.PressButton(false);
 
 // GOOD
-var lightGood = new DESIGNPATTERNS.BehavioralsDesignsPatterns.Command.GOOD.Light();
-var remoteGood = new DESIGNPATTERNS.BehavioralsDesignsPatterns.Command.GOOD.RemoteControl(new TurnOnCommand(lightGood));
-remoteGood.PressButton(); // light is on
-remoteGood.SetCommand(new DimCommand(lightGood));
-remoteGood.PressButton(); // light is dim
-remoteGood.SetCommand(new TurnOffCommand(lightGood));
-remoteGood.PressButton(); // light is off
+// var lightGood = new DESIGNPATTERNS.BehavioralsDesignsPatterns.Command.GOOD.Light();
+// var remoteGood = new DESIGNPATTERNS.BehavioralsDesignsPatterns.Command.GOOD.RemoteControl(new TurnOnCommand(lightGood));
+// remoteGood.PressButton(); // light is on
+// remoteGood.SetCommand(new DimCommand(lightGood));
+// remoteGood.PressButton(); // light is dim
+// remoteGood.SetCommand(new TurnOffCommand(lightGood));
+// remoteGood.PressButton(); // light is off
 
 // UNDOABLE
-var htmlDoc = new HtmlDocument();
-var history = new History();
-htmlDoc.Content = "Hello wrold";
-System.Console.WriteLine(htmlDoc.Content); // Hello world
+// var htmlDoc = new HtmlDocument();
+// var history = new History();
+// htmlDoc.Content = "Hello wrold";
+// System.Console.WriteLine(htmlDoc.Content); // Hello world
 
-var italicCommand = new ItalicCommand(htmlDoc, history);
-italicCommand.Execute();
-System.Console.WriteLine(htmlDoc.Content);// <i>Hello world</i>
+// var italicCommand = new ItalicCommand(htmlDoc, history);
+// italicCommand.Execute();
+// System.Console.WriteLine(htmlDoc.Content);// <i>Hello world</i>
 
-var undoCommand = new UndoCommand(history);
-undoCommand.Execute();
-System.Console.WriteLine(htmlDoc.Content);// Hello world
+// var undoCommand = new UndoCommand(history);
+// undoCommand.Execute();
+// System.Console.WriteLine(htmlDoc.Content);// Hello world
 
 /* 
         Template method Pattern
@@ -171,21 +172,56 @@ System.Console.WriteLine(htmlDoc.Content);// Hello world
 */
 
 //BAD: Si on ajoute une autre classe, on répète le code (ex: Coffee avec des particularités différentes)
-var teaBad = new Tea();
-teaBad.MakeBeverage();
+// var teaBad = new Tea();
+// teaBad.MakeBeverage();
 
 //GOOD Strategy Patterns
-System.Console.WriteLine("GOOD Strategy Patterns");
-var beverageMaker = new BeverageMaker(new DesignPatterns.BehavioralsDesignsPatterns.TEMPLATE_METHOD.GOOD_StrategyPattern.Tea());
-beverageMaker.MakeBeverage();
+// System.Console.WriteLine("GOOD Strategy Patterns");
+// var beverageMaker = new BeverageMaker(new DesignPatterns.BehavioralsDesignsPatterns.TEMPLATE_METHOD.GOOD_StrategyPattern.Tea());
+// beverageMaker.MakeBeverage();
 
-beverageMaker = new BeverageMaker(new DesignPatterns.BehavioralsDesignsPatterns.TEMPLATE_METHOD.GOOD_StrategyPattern.Coffee());
-beverageMaker.MakeBeverage();
+// beverageMaker = new BeverageMaker(new DesignPatterns.BehavioralsDesignsPatterns.TEMPLATE_METHOD.GOOD_StrategyPattern.Coffee());
+// beverageMaker.MakeBeverage();
 
 // GOOD Template method Pattern
-System.Console.WriteLine("GOOD Template method Pattern");
-var tea = new DesignPatterns.BehavioralsDesignsPatterns.TEMPLATE_METHOD.GOOD_TemplateMethodPattern.Tea();
-tea.Prepare();
+// System.Console.WriteLine("GOOD Template method Pattern");
+// var tea = new DesignPatterns.BehavioralsDesignsPatterns.TEMPLATE_METHOD.GOOD_TemplateMethodPattern.Tea();
+// tea.Prepare();
 
-var camomile = new DesignPatterns.BehavioralsDesignsPatterns.TEMPLATE_METHOD.GOOD_TemplateMethodPattern.Camomile();
-camomile.Prepare();
+// var camomile = new DesignPatterns.BehavioralsDesignsPatterns.TEMPLATE_METHOD.GOOD_TemplateMethodPattern.Camomile();
+// camomile.Prepare();
+
+/* 
+        Observer Pattern => Le "publisher" va notifier les "observers" qui sont abonnés à lui si son état change
+*/
+
+// BAD: Les principes SOLID SRP et OCP sont violés dans cette implémentation.
+// SRP => Datasource a 2 responsabilités, stocker les données et gérer les objets dépendants (Sheet2 et BarChart)
+// OCP => Si on crée d'autre objets (Sheet1, BarChart2 etc.), on est obligé de modifier Datasource.cs
+
+// Datasource datasourceBad = new Datasource();
+// Sheet2 sheet2Bad = new Sheet2();
+// BarChart barChartBad = new BarChart();
+
+// datasourceBad.AddDependent(sheet2Bad);
+// datasourceBad.AddDependent(barChartBad);
+
+// datasourceBad.SetValues([5, 1, 10]);
+
+// datasourceBad.SetValues([1, 2, 3]);
+
+// GOOD:
+// SRP => on Créé une classe qui gère les objets
+// OCP => on implémente une interface commune aux objets Sheet2 et BarChart
+
+DesignPatterns.BehavioralsDesignsPatterns.OBSERVER.GOOD.Datasource datasource = new DesignPatterns.BehavioralsDesignsPatterns.OBSERVER.GOOD.Datasource();
+
+DesignPatterns.BehavioralsDesignsPatterns.OBSERVER.GOOD.Sheet2 sheet2 = new DesignPatterns.BehavioralsDesignsPatterns.OBSERVER.GOOD.Sheet2(datasource);
+DesignPatterns.BehavioralsDesignsPatterns.OBSERVER.GOOD.BarChart barChart = new DesignPatterns.BehavioralsDesignsPatterns.OBSERVER.GOOD.BarChart(datasource);
+
+datasource.AddObserver(sheet2);
+datasource.AddObserver(barChart);
+
+datasource.SetValues([5, 1, 10]);
+
+datasource.SetValues([1, 2, 3]);
