@@ -246,22 +246,58 @@ Separation of concern: séparations entre les objets et les classes
 // serverBad.Handle(requestBad);
 
 // GOOD
-var validator = new DesignPatterns.BehavioralsDesignsPatterns.CHAINOFRESPONSABILITY.GOOD.Validator();
-var authenticator = new DesignPatterns.BehavioralsDesignsPatterns.CHAINOFRESPONSABILITY.GOOD.Authenticator();
-var logger = new DesignPatterns.BehavioralsDesignsPatterns.CHAINOFRESPONSABILITY.GOOD.Logger();
+// var validator = new DesignPatterns.BehavioralsDesignsPatterns.CHAINOFRESPONSABILITY.GOOD.Validator();
+// var authenticator = new DesignPatterns.BehavioralsDesignsPatterns.CHAINOFRESPONSABILITY.GOOD.Authenticator();
+// var logger = new DesignPatterns.BehavioralsDesignsPatterns.CHAINOFRESPONSABILITY.GOOD.Logger();
 
-validator.SetNext(authenticator).SetNext(logger);
+// validator.SetNext(authenticator).SetNext(logger);
 
-var server = new DesignPatterns.BehavioralsDesignsPatterns.CHAINOFRESPONSABILITY.GOOD.WebServer(validator);
+// var server = new DesignPatterns.BehavioralsDesignsPatterns.CHAINOFRESPONSABILITY.GOOD.WebServer(validator);
 
-var req = new DesignPatterns.BehavioralsDesignsPatterns.CHAINOFRESPONSABILITY.GOOD.HttpRequest("danny", "123"); // La chaine est correcte
-// ici la pipeline affiche "Validating"->"Authenticating"->"Logging"
-server.Handle(req);
+// var req = new DesignPatterns.BehavioralsDesignsPatterns.CHAINOFRESPONSABILITY.GOOD.HttpRequest("danny", "123"); // La chaine est correcte
+// // ici la pipeline affiche "Validating"->"Authenticating"->"Logging"
+// server.Handle(req);
 
-var req2 = new DesignPatterns.BehavioralsDesignsPatterns.CHAINOFRESPONSABILITY.GOOD.HttpRequest("danny", "abc"); // Le mdp est faux
-// ici la pipeline affiche "Validating"->"Authenticating"
-server.Handle(req2);
+// var req2 = new DesignPatterns.BehavioralsDesignsPatterns.CHAINOFRESPONSABILITY.GOOD.HttpRequest("danny", "abc"); // Le mdp est faux
+// // ici la pipeline affiche "Validating"->"Authenticating"
+// server.Handle(req2);
 
-var req3 = new DesignPatterns.BehavioralsDesignsPatterns.CHAINOFRESPONSABILITY.GOOD.HttpRequest("", ""); // les chaines sont vides
-// ici la pipeline affiche "Validating"
-server.Handle(req3);
+// var req3 = new DesignPatterns.BehavioralsDesignsPatterns.CHAINOFRESPONSABILITY.GOOD.HttpRequest("", ""); // les chaines sont vides
+// // ici la pipeline affiche "Validating"
+// server.Handle(req3);
+
+/* 
+        Visitor Pattern => Permet de gérer plusieurs clients on sépare le comportement d'un objet dans un Visitor pour ne pas avoir à changer
+        chaque objet d'une évolution
+*/
+
+
+//BAD: Manager demande d'étendre de plus en plus de features dans chaque client (ex: export PDF, XML etc.)
+// A chaque fois on doit modifier la base CLient et implémenter dans chaque client (OCP) et SRP
+
+// Getting list from clients (ex: Database)
+using DesignPatterns.BehavioralsDesignsPatterns.VISITOR.GOOD;
+
+var clientsBad = new List<DesignPatterns.BehavioralsDesignsPatterns.VISITOR.BAD.Client>(){
+new DesignPatterns.BehavioralsDesignsPatterns.VISITOR.BAD.RetailClient("Debinhams", "team@debinhams.com"),
+new DesignPatterns.BehavioralsDesignsPatterns.VISITOR.BAD.RestaurantClient("Frankie & Bennys", "frankAndBenny@resto.com"),
+new DesignPatterns.BehavioralsDesignsPatterns.VISITOR.BAD.LawClient("Hamlin McGil Law Firm", "HamliMcGin@Lawers.com"),
+};
+
+foreach (var client in clientsBad)
+{
+        client.SendEmail();
+}
+
+// GOOD
+var clientsGood = new List<DesignPatterns.BehavioralsDesignsPatterns.VISITOR.GOOD.Client>(){
+new DesignPatterns.BehavioralsDesignsPatterns.VISITOR.GOOD.RetailClient("Debinhams", "team@debinhams.com"),
+new DesignPatterns.BehavioralsDesignsPatterns.VISITOR.GOOD.RestaurantClient("Frankie & Bennys", "frankAndBenny@resto.com"),
+new DesignPatterns.BehavioralsDesignsPatterns.VISITOR.GOOD.LawClient("Hamlin McGil Law Firm", "HamliMcGin@Lawers.com")
+};
+
+foreach (var client in clientsGood)
+{
+        // client.Accept(new EmailVisitor());
+        client.Accept(new PDFExportVisitor());
+}
