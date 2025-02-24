@@ -1,7 +1,4 @@
-﻿using System.Security.Cryptography;
-using DesignPatterns.BehavioralsDesignsPatterns.MEDIATOR;
-using DesignPatterns.BehavioralsDesignsPatterns.OBSERVER.BAD;
-/* Begavioral Design Patterns
+﻿/* Begavioral Design Patterns
 Les Design Patterns Bahaviorial concernent l'interaction entre les objets
 Permet de résoudre des problèmes de communication, de responsabilité et d'algorithmique
 Separation of concern: séparations entre les objets et les classes
@@ -234,5 +231,37 @@ Separation of concern: séparations entre les objets et les classes
 // var postDialogBox = new PostDialogBox();
 // postDialogBox.SimulateUserInteraction();
 
-var postDialogBox = new DesignPatterns.BehavioralsDesignsPatterns.MEDIATOR.WITHOBSERVER.PostDialogBox();
-postDialogBox.SimulateUserInteraction();
+// var postDialogBox = new DesignPatterns.BehavioralsDesignsPatterns.MEDIATOR.WITHOBSERVER.PostDialogBox();
+// postDialogBox.SimulateUserInteraction();
+
+/* 
+        Chain of responsability Pattern => Sépare les responsabilités entre les chaines d'objets pour les rendre indépendantes les unes des autres en
+        Créant une "Pipeline".
+*/
+
+// BAD
+
+// var serverBad = new DesignPatterns.BehavioralsDesignsPatterns.CHAINOFRESPONSABILITY.BAD.WebServer();
+// var requestBad = new DesignPatterns.BehavioralsDesignsPatterns.CHAINOFRESPONSABILITY.BAD.HttpRequest("danny", "123");
+// serverBad.Handle(requestBad);
+
+// GOOD
+var validator = new DesignPatterns.BehavioralsDesignsPatterns.CHAINOFRESPONSABILITY.GOOD.Validator();
+var authenticator = new DesignPatterns.BehavioralsDesignsPatterns.CHAINOFRESPONSABILITY.GOOD.Authenticator();
+var logger = new DesignPatterns.BehavioralsDesignsPatterns.CHAINOFRESPONSABILITY.GOOD.Logger();
+
+validator.SetNext(authenticator).SetNext(logger);
+
+var server = new DesignPatterns.BehavioralsDesignsPatterns.CHAINOFRESPONSABILITY.GOOD.WebServer(validator);
+
+var req = new DesignPatterns.BehavioralsDesignsPatterns.CHAINOFRESPONSABILITY.GOOD.HttpRequest("danny", "123"); // La chaine est correcte
+// ici la pipeline affiche "Validating"->"Authenticating"->"Logging"
+server.Handle(req);
+
+var req2 = new DesignPatterns.BehavioralsDesignsPatterns.CHAINOFRESPONSABILITY.GOOD.HttpRequest("danny", "abc"); // Le mdp est faux
+// ici la pipeline affiche "Validating"->"Authenticating"
+server.Handle(req2);
+
+var req3 = new DesignPatterns.BehavioralsDesignsPatterns.CHAINOFRESPONSABILITY.GOOD.HttpRequest("", ""); // les chaines sont vides
+// ici la pipeline affiche "Validating"
+server.Handle(req3);
