@@ -133,21 +133,13 @@ namespace DesignPatterns.BehavioralsDesignsPatterns
             Console.WriteLine(docGood.State);
         }
 
-        /// <summary>
-        /// Observer Pattern => Définit une dépendance de type one-to-many entre objets, de manière à ce que lorsque un objet change d'état, 
-        /// tous ceux qui en dépendent en sont notifiés et mis à jour automatiquement.
-        /// Autre def: Permet de définir une relation Observateur-Obersable entre les objets. Quand un objet de type Observable change d’état, il notifie 
-        /// tous les autres objets qui l’observent de son changement pour eux-mêmes changer d’état.
-        /// </summary>
         public void ObserverPattern()
         {
             var description = "Définit une dépendance de type one-to-many entre objets, de manière à ce que lorsque un objet change d'état, \ntous ceux qui en dépendent en sont notifiés et mis à jour automatiquement.\nAutre def: Permet de définir une relation Observateur-Obersable entre les objets. Quand un objet de type Observable change d’état, il notifie \ntous les autres objets qui l’observent de son changement pour eux-mêmes changer d’état.";
             Helpers.SetTitle(nameof(ObserverPattern), Statut.Title, description);
 
-            Helpers.SetTitle(Statut.Bad.ToString(), Statut.Bad);
-            //BAD: Les principes SOLID SRP et OCP sont violés dans cette implémentation.
-            //SRP => Datasource a 2 responsabilités, stocker les données et gérer les objets dépendants(Sheet2 et BarChart)
-            //OCP => Si on crée d'autre objets (Sheet1, BarChart2 etc.), on est obligé de modifier Datasource.cs
+            Helpers.SetTitle(Statut.Bad.ToString(), Statut.Bad, "Les principes SOLID SRP et OCP sont violés dans cette implémentation.\nSRP => Datasource a 2 responsabilités, stocker les données et gérer les objets dépendants(Sheet2 et BarChart)\nOCP => Si on crée d'autre objets (Sheet1, BarChart2 etc.), on est obligé de modifier Datasource.cs");
+
             Datasource datasourceBad = new Datasource();
             Sheet2 sheet2Bad = new Sheet2();
             BarChart barChartBad = new BarChart();
@@ -158,11 +150,9 @@ namespace DesignPatterns.BehavioralsDesignsPatterns
             datasourceBad.SetValues([5, 1, 10]);
             datasourceBad.SetValues([1, 2, 3]);
 
-            Helpers.SetTitle(Statut.Good.ToString(), Statut.Good);
-            //SRP => on Créé une classe qui gère les objets
-            //OCP => on implémente une interface commune aux objets Sheet2 et BarChart
-            OBSERVER.GOOD.Datasource datasource = new OBSERVER.GOOD.Datasource();
+            Helpers.SetTitle(Statut.Good.ToString(), Statut.Good, "SRP => on Créé une classe qui gère les objets\nOCP => on implémente une interface commune aux objets Sheet2 et BarChart");
 
+            OBSERVER.GOOD.Datasource datasource = new OBSERVER.GOOD.Datasource();
             OBSERVER.GOOD.Sheet2 sheet2 = new OBSERVER.GOOD.Sheet2(datasource);
             OBSERVER.GOOD.BarChart barChart = new OBSERVER.GOOD.BarChart(datasource);
 
@@ -173,10 +163,6 @@ namespace DesignPatterns.BehavioralsDesignsPatterns
             datasource.SetValues([1, 2, 3]);
         }
 
-        /// <summary>
-        ///  Memento Pattern =>  Permet de sauvegarder et restaurer l'état antérieur d'un objet sans révéler les détails de son implémentation.
-        ///  Autre def: Permet de restaurer un état précédent d’un objet (retour arrière) sans violer le principe d’encapsulation.
-        /// </summary>
         public void MementoPattern()
         {
             var description = "Permet de sauvegarder et restaurer l'état antérieur d'un objet sans révéler les détails de son implémentation.\nAutre def: Permet de restaurer un état précédent d’un objet (retour arrière) sans violer le principe d’encapsulation.";
@@ -255,11 +241,6 @@ namespace DesignPatterns.BehavioralsDesignsPatterns
             }
         }
 
-        /// <summary>
-        ///  Chain of responsability Pattern => Passe une demande le long d'une chaîne de gestionnaires potentiels jusqu'à ce qu'elle soit traitée.
-        ///  Autre def: Permet de construire une chaîne d’objets. La responsabilité de l’objet qui accepte une requête doit la traiter. S’il ne peut 
-        ///  pas le faire, il passe le relais au suivant et ainsi de suite.
-        /// </summary>
         public void ChainOfResponsabilityPattern()
         {
             var description = "Passe une demande le long d'une chaîne de gestionnaires potentiels jusqu'à ce qu'elle soit traitée.\nAutre def: Permet de construire une chaîne d’objets. La responsabilité de l’objet qui accepte une requête doit la traiter. S’il ne peut \npas le faire, il passe le relais au suivant et ainsi de suite.";
@@ -292,11 +273,6 @@ namespace DesignPatterns.BehavioralsDesignsPatterns
             server.Handle(req3);
         }
 
-        /// <summary>
-        /// Command Pattern => Encapsule une demande en tant qu'objet, permettant ainsi de paramétrer les clients avec des queues de requêtes,
-        /// des demandes et des opérations.
-        /// Autre def: Permet d’encapsuler des requêtes sous forme d’objet.
-        /// </summary>
         public void CommandPattern()
         {
             var description = "Encapsule une demande en tant qu'objet, permettant ainsi de paramétrer les clients avec des queues de requêtes,\ndes demandes et des opérations.\nAutre def: Permet d’encapsuler des requêtes sous forme d’objet.";
@@ -333,10 +309,6 @@ namespace DesignPatterns.BehavioralsDesignsPatterns
             Console.WriteLine(htmlDoc.Content);// Hello world
         }
 
-        /// <summary>
-        /// Interpreter Pattern => Permet d'évaluer des phrases dans un language en utilisant une classe abstraite d'expressions
-        /// Exemple: Parser et exécuter une requête SQL, Calcul scientifique d'une calculatrice, render HTML etc.
-        /// </summary>
         public void InterpreterPattern()
         {
             var description = "Permet d'évaluer des phrases dans un language en utilisant une classe abstraite d'expressions\nExemple: Parser et exécuter une requête SQL, Calcul scientifique d'une calculatrice, render HTML etc.";
