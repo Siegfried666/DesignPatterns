@@ -1,6 +1,6 @@
 using DesignPatterns.StructuralsDesignPatterns.ADAPTER.BAD;
-using DesignPatterns.StructuralsDesignPatterns.BRIDGE.BAD;
-using DesignPatterns.StructuralsDesignPatterns.BRIDGE.GOOD;
+using DesignPatterns.StructuralsDesignPatterns.PROXY.BAD.Package;
+using DesignPatterns.StructuralsDesignPatterns.PROXY.GOOD;
 using DesignPatterns.Utils;
 
 namespace DesignPatterns.StructuralsDesignPatterns
@@ -12,7 +12,6 @@ namespace DesignPatterns.StructuralsDesignPatterns
     /// </summary>
     public class StructuralsExamples
     {
-
         public void CompositePattern()
         {
             var description = "Permet de traiter les objets de façon individuelle à partir d'arborescences (ex: des boites qui contiennent d'autres boites et des produits différents)";
@@ -65,7 +64,7 @@ namespace DesignPatterns.StructuralsDesignPatterns
         public void AdapterPattern()
         {
             var description = "Fournir un wrapper pour adapter/traduire des interfaces qui sont incompatibles entre elles pour les faire travailler ensemble (ex: Upload d'une vidéo et changer sa couleur)";
-            Helpers.SetTitle(nameof(BASEPattern), Statut.Title, description);
+            Helpers.SetTitle(nameof(AdapterPattern), Statut.Title, description);
 
             Helpers.SetTitle(Statut.Bad.ToString(), Statut.Bad, "Si on décide d'ajouter une classe qui appartient à une autre librairie de couleurs qui ne contient pas l'interface IColor alors  que les autres si... comment fait-on ?");
 
@@ -107,7 +106,40 @@ namespace DesignPatterns.StructuralsDesignPatterns
             advancedSonyControl.TurnOn();
             advancedSonyControl.TurnOff();
             advancedSonyControl.SetChannel(2);
+        }
 
+        public void ProxyPattern()
+        {
+            var description = "Permet l'accès d'un objet à un autre objet en controlant son accès (ex: liste de vidéo Youtube d'une API, et affiche la liste)";
+            Helpers.SetTitle(nameof(ProxyPattern), Statut.Title, description);
+
+            Helpers.SetTitle(Statut.Bad.ToString(), Statut.Bad, "Dans cette structure de classe, si on appelle une nouvelle fois une vidéo Youtube, toutes les vidéos vont de nouveau être téléchargées, ce qui implique un cout de téléchargement important !");
+            var videoListBAD = new PROXY.BAD.VideoList();
+            string[] videoIds = { "1234", "abcde", "javascr123" };
+
+            foreach (var videoId in videoIds)
+            {
+                videoListBAD.Add(new YoutubeVideo(videoId));
+            }
+
+            // Downloading video with id 1234 from Youtube API
+            // Downloading video with id abcde from Youtube API
+            // Downloading video with id javascr123 from Youtube API
+            // Rendering video abcde            
+            videoListBAD.Watch("abcde");
+
+            Helpers.SetTitle(Statut.Good.ToString(), Statut.Good, "Afin de contourner ce problème, il faut faire en sorte que les vidéos, une fois téléchargées, ne le soient plus ensuite, c'est ce qu'on appelle le 'lazy loading', d'ou l'utilisation d'un objet intermédiaire, le proxy.");
+
+            var videoListGOOD = new PROXY.GOOD.VideoList();
+
+            foreach (var videoId in videoIds)
+            {
+                videoListGOOD.Add(new YoutubeVideoProxy(videoId));
+            }
+
+            // Downloading video with id abcde from Youtube API
+            // Rendering video abcde
+            videoListGOOD.Watch("abcde");
         }
 
         public void BASEPattern()

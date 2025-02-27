@@ -28,5 +28,6 @@ void StructuralsPatterns()
 
     // structurals.CompositePattern();
     // structurals.AdapterPattern();
-    structurals.BridgePattern();
+    // structurals.BridgePattern();
+    structurals.ProxyPattern();
 }
