@@ -1,4 +1,5 @@
 using DesignPatterns.StructuralsDesignPatterns.ADAPTER.BAD;
+using DesignPatterns.StructuralsDesignPatterns.FLYWEIGHT.BAD;
 using DesignPatterns.StructuralsDesignPatterns.PROXY.BAD.Package;
 using DesignPatterns.StructuralsDesignPatterns.PROXY.GOOD;
 using DesignPatterns.Utils;
@@ -140,6 +141,29 @@ namespace DesignPatterns.StructuralsDesignPatterns
             // Downloading video with id abcde from Youtube API
             // Rendering video abcde
             videoListGOOD.Watch("abcde");
+        }
+
+        public void FlyweightPattern()
+        {
+            var description = "Permet de minimiser l'utilisation de la mémoire en partageant des états communs aux objets.";
+            Helpers.SetTitle(nameof(BASEPattern), Statut.Title, description);
+
+            Helpers.SetTitle(Statut.Bad.ToString(), Statut.Bad, "Le problème est que pour lorsqu'on créé un nouvelle objet telle une carotte, on insère toutes les données dans l'objet. Si on créé 10000 carottes, on aura 10000 icones de carottes en mémoire !");
+            var cropServiceBAD = new CropService();
+
+            foreach (var crop in cropServiceBAD.GetCrops())
+            {
+                crop.Render();
+            }
+
+            Helpers.SetTitle(Statut.Good.ToString(), Statut.Good, "La solution est de pouvoir partager l'icone de la carotte au lieu de la charger à chaque création d'une nouvelle carotte. Ici l'icone et le type de crop CropType sont des constantes qu'on peut centraliser.");
+
+            var CropService = new  FLYWEIGHT.GOOD.CropService(new FLYWEIGHT.GOOD.CropIconFactory());
+
+             foreach (var crop in CropService.GetCrops())
+            {
+                crop.Render();
+            }
         }
 
         public void BASEPattern()
