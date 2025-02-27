@@ -26,6 +26,7 @@ void StructuralsPatterns()
 {
     StructuralsExamples structurals = new StructuralsExamples();
 
-    structurals.CompositePattern();
-    structurals.AdapterPattern();
+    // structurals.CompositePattern();
+    // structurals.AdapterPattern();
+    structurals.BridgePattern();
 }

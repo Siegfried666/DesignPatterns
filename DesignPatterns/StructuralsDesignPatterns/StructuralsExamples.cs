@@ -1,4 +1,6 @@
 using DesignPatterns.StructuralsDesignPatterns.ADAPTER.BAD;
+using DesignPatterns.StructuralsDesignPatterns.BRIDGE.BAD;
+using DesignPatterns.StructuralsDesignPatterns.BRIDGE.GOOD;
 using DesignPatterns.Utils;
 
 namespace DesignPatterns.StructuralsDesignPatterns
@@ -76,7 +78,36 @@ namespace DesignPatterns.StructuralsDesignPatterns
 
             var videoEditor = new ADAPTER.GOOD.VideoEditor(new ADAPTER.GOOD.Video());
             videoEditor.ApplyColor(new ADAPTER.GOOD.BackAndWhiteColor());
-            videoEditor.ApplyColor(new ADAPTER.GOOD.RainbowColor(new ADAPTER.GOOD.Rainbow() ));// OK !
+            videoEditor.ApplyColor(new ADAPTER.GOOD.RainbowColor(new ADAPTER.GOOD.Rainbow()));// OK !
+        }
+
+        public void BridgePattern()
+        {
+            var description = "Permet de séparer des grandes classes en plusieurs sous-classes pouvant être développées indépendamment les unes des autres";
+            Helpers.SetTitle(nameof(BridgePattern), Statut.Title, description);
+
+            Helpers.SetTitle(Statut.Bad.ToString(), Statut.Bad, "Par exemple on a des télécommandes pour controler la radio. Chaque marque est différente (Sony, Samsung,  LG). une commande contient 3 types de fonctionnalités => SamsungRemote, AdvancedRemote, MegaSamsungRepote etc. idem pour les autres. \n Si on veut créer une nouvelle classe, mettons 'RadioTVRemote, on va devoir ajouter les 3 formes RadioTVLG, RadioTVSony, RadioTVSamsung...\nCette solution n'est pas maintenable !");
+
+            var lgRemoteBAD = new BRIDGE.BAD.LGRemote();
+            lgRemoteBAD.TurnOn();
+            lgRemoteBAD.TurnOff();
+
+            var lgRadioAndTvRemoteBAD = new BRIDGE.BAD.LGRradioAndTVRemote();
+            lgRadioAndTvRemoteBAD.ControlTV();
+            lgRadioAndTvRemoteBAD.TurnOn();
+            lgRadioAndTvRemoteBAD.VolumeUp();
+
+            Helpers.SetTitle(Statut.Good.ToString(), Statut.Good, "On sépare les hierarchies de classe en 2, d'un côté le RemoteControl séparé de l'autre côté des marques LG, Sony etc.\n On peut injecter indépendamment du Sony, du LG etc sans avoir a recréer d'autres classes");
+
+            var lgRemoteControl = new BRIDGE.GOOD.RemoteControl(new BRIDGE.GOOD.LGRadio());
+            lgRemoteControl.TurnOn();
+            lgRemoteControl.TurnOff();
+
+            var advancedSonyControl = new BRIDGE.GOOD.AdvancedRemote(new BRIDGE.GOOD.SonyRadio());
+            advancedSonyControl.TurnOn();
+            advancedSonyControl.TurnOff();
+            advancedSonyControl.SetChannel(2);
+
         }
 
         public void BASEPattern()
