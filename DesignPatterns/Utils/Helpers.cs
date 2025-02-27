@@ -2,7 +2,7 @@ namespace DesignPatterns.Utils
 {
     public static class Helpers
     {
-        public static void SetTitle(string title, Statut statut, string description = "")
+        public static void SetTitle(string title, Statut statut = Statut.Good, string description = "")
         {
             var stars = 50;
             var spaces = 5;
