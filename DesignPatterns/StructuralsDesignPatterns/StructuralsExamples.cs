@@ -1,3 +1,4 @@
+using DesignPatterns.StructuralsDesignPatterns.ADAPTER.BAD;
 using DesignPatterns.Utils;
 
 namespace DesignPatterns.StructuralsDesignPatterns
@@ -57,6 +58,25 @@ namespace DesignPatterns.StructuralsDesignPatterns
             package.Add(box4);
 
             Console.WriteLine("Total price of package = " + package.GetPrice()); //Total price of package = 87,99
+        }
+
+        public void AdapterPattern()
+        {
+            var description = "Fournir un wrapper pour adapter/traduire des interfaces qui sont incompatibles entre elles pour les faire travailler ensemble (ex: Upload d'une vidéo et changer sa couleur)";
+            Helpers.SetTitle(nameof(BASEPattern), Statut.Title, description);
+
+            Helpers.SetTitle(Statut.Bad.ToString(), Statut.Bad, "Si on décide d'ajouter une classe qui appartient à une autre librairie de couleurs qui ne contient pas l'interface IColor alors  que les autres si... comment fait-on ?");
+
+            var videoEditorBAD = new ADAPTER.BAD.VideoEditor(new Video());
+            videoEditorBAD.ApplyColor(new BackAndWhiteColor());
+
+            // videoEditorBAD.ApplyColor(new Rainbow());// Error !
+
+            Helpers.SetTitle(Statut.Good.ToString(), Statut.Good, "La solution est d'implémenter un wrapper qui va permettre de traduire l'interface de la nouvelle classe de couleur pour lui permettre de s'adapter à notre code");
+
+            var videoEditor = new ADAPTER.GOOD.VideoEditor(new ADAPTER.GOOD.Video());
+            videoEditor.ApplyColor(new ADAPTER.GOOD.BackAndWhiteColor());
+            videoEditor.ApplyColor(new ADAPTER.GOOD.RainbowColor(new ADAPTER.GOOD.Rainbow() ));// OK !
         }
 
         public void BASEPattern()
